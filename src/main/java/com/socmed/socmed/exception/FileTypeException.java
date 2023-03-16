@@ -1,6 +1,6 @@
 package com.socmed.socmed.exception;
 
-public class FileTypeException extends Throwable{
+public class FileTypeException extends RuntimeException{
 
     public FileTypeException() {
         super();

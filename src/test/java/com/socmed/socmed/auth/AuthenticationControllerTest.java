@@ -1,9 +1,13 @@
 package com.socmed.socmed.auth;
 
-import com.socmed.socmed.profile.Profile;
-import com.socmed.socmed.role.Role;
-import com.socmed.socmed.user.User;
-import com.socmed.socmed.user.UserDTO;
+import com.socmed.socmed.modules.auth.AuthenticationController;
+import com.socmed.socmed.modules.auth.AuthenticationRequest;
+import com.socmed.socmed.modules.auth.AuthenticationResponse;
+import com.socmed.socmed.modules.auth.AuthenticationService;
+import com.socmed.socmed.modules.profile.Profile;
+import com.socmed.socmed.modules.role.Role;
+import com.socmed.socmed.modules.user.User;
+import com.socmed.socmed.modules.user.UserDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,7 +20,6 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
@@ -40,7 +43,7 @@ class AuthenticationControllerTest {
         Role role = Role.builder().name("admin").build();
         User user = User.builder().id(1L).email("test@gmail.com").username("test").password("test").role(role).profiles(profile).build();
 
-        UserDTO userDTO = UserDTO.builder().id(1L).email("test@gmail.com").username("test").role(role).profiles(profile).build();
+        UserDTO userDTO = UserDTO.builder().id(1L).email("test@gmail.com").username("test").role(role).build();
 
         AuthenticationRequest request = new AuthenticationRequest(username, password);
         AuthenticationResponse expectedResponse = new AuthenticationResponse(jwtToken, null, userDTO);

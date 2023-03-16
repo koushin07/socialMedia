@@ -1,6 +1,6 @@
 package com.socmed.socmed.config;
 
-import com.socmed.socmed.user.UserRepository;
+import com.socmed.socmed.modules.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

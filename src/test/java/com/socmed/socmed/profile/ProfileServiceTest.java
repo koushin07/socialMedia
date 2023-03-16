@@ -1,10 +1,11 @@
 package com.socmed.socmed.profile;
 
 import com.socmed.socmed.exception.ResourceNotFoundException;
-import com.socmed.socmed.role.RoleRepository;
-import com.socmed.socmed.user.UserRepository;
-import com.socmed.socmed.role.Role;
-import com.socmed.socmed.user.User;
+import com.socmed.socmed.modules.profile.*;
+import com.socmed.socmed.modules.role.RoleRepository;
+import com.socmed.socmed.modules.user.UserRepository;
+import com.socmed.socmed.modules.role.Role;
+import com.socmed.socmed.modules.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

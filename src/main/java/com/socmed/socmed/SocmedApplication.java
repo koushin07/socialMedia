@@ -1,7 +1,7 @@
 package com.socmed.socmed;
 
-import com.socmed.socmed.role.Role;
-import com.socmed.socmed.role.RoleRepository;
+import com.socmed.socmed.modules.role.Role;
+import com.socmed.socmed.modules.role.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,13 +16,13 @@ public class SocmedApplication {
 
 	}
 
-	@Bean
-	CommandLineRunner run(RoleRepository roleRepository){
-
-		return args -> {
-			roleRepository.save(Role.builder().name("admin").build());
-			roleRepository.save(Role.builder().name("normal").build());
-		};
-	}
+//	@Bean
+//	CommandLineRunner run(RoleRepository roleRepository){
+//
+//		return args -> {
+//			roleRepository.save(Role.builder().name("admin").build());
+//			roleRepository.save(Role.builder().name("normal").build());
+//		};
+//	}
 
 }

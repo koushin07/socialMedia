@@ -2,7 +2,7 @@ package com.socmed.socmed.exception;
 
 import java.util.function.Supplier;
 
-public class ResourceNotFoundException extends Throwable {
+public class ResourceNotFoundException extends RuntimeException {
 
     public ResourceNotFoundException() {
         super();
