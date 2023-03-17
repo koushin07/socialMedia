@@ -43,5 +43,9 @@ public class AuthenticationController {
         return ok(authenticationService.refreshToken(request));
     }
 
+    @GetMapping("/testing")
+    public String tst(){
+        return "successfully deployed";
+    }
 
 }
