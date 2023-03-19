@@ -20,7 +20,7 @@ public class SocmedApplication {
 	}
 	@GetMapping("/testing")
 	public String tst(){
-		return "successfully deployed";
+		return "successfully deployed saved";
 	}
 
 //	@Bean
