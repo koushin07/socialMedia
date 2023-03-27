@@ -39,7 +39,7 @@ class ProfileServiceTest {
     void setUp() {
         userRepository = mock(UserRepository.class);
         roleRepository = mock(RoleRepository.class);
-        mapper = mock(ProfileMapperImpl.class);
+
         underTest = new ProfileService(profileRepository, userRepository);
     }
     @Test

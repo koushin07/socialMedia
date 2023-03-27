@@ -1,6 +1,7 @@
 package com.socmed.socmed.auth;
 
 import com.socmed.socmed.modules.auth.AuthenticationRefreshTokenRequest;
+import com.socmed.socmed.modules.jwt.BlackListService;
 import com.socmed.socmed.modules.jwt.JwtService;
 import com.socmed.socmed.modules.auth.AuthenticationRequest;
 import com.socmed.socmed.modules.auth.AuthenticationResponse;
@@ -47,6 +48,9 @@ class AuthenticationServiceTest {
 
     @Mock
     private UserDetailsService userDetailsService;
+
+    @Mock
+    private BlackListService blackListService;
     @InjectMocks
     private AuthenticationService underTest;
 
@@ -61,8 +65,8 @@ class AuthenticationServiceTest {
                 jwtService,
                 authenticationManager,
                 roleRepository,
-                userDetailsService
-
+                userDetailsService,
+                blackListService
         );
 
     }

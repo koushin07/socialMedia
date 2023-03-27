@@ -1,15 +1,13 @@
 package com.socmed.socmed.modules.post;
 
 import com.socmed.socmed.exception.ResourceNotFoundException;
-import com.socmed.socmed.modules.profile.   ProfileDTO;
+import com.socmed.socmed.modules.profile.ProfileMapper;
 import com.socmed.socmed.modules.user.User;
 import com.socmed.socmed.modules.user.UserMapper;
 import com.socmed.socmed.modules.user.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,9 +20,9 @@ public record PostService(
         return postRepository.findAll();
     }
 
-    public List<Post> postOfUser(Long userId) {
-
-        return postRepository.findAllByUserId(userId);
+    public List<PostFeedsResponse> postOfUser(Long userId) {
+        List<PostFeedsResponse>  response= PostMapper.INSTANCE.createFeeds(postRepository.findAllByUserId(userId));
+        return response;
     }
 
     public PostResponse createPost(PostCreationRequest request) throws ResourceNotFoundException {
@@ -48,5 +46,13 @@ public record PostService(
 
         post.setPostContent(request.getPostContent());
         return postRepository.save(post);
+    }
+
+
+    public List<PostFeedsResponse> getFeeds() {
+
+List<Post> posts = postRepository.findAll();
+        System.out.println(posts);
+        return PostMapper.INSTANCE.createFeeds(posts);
     }
 }

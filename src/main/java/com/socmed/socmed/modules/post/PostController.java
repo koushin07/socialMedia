@@ -24,10 +24,8 @@ public record PostController(
 ) {
 
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, List<Post>>> PostOfUser(@PathVariable("id") Long userId) {
-        Map<String, List<Post>> result = new HashMap<>();
-        result.put("posts", postService.postOfUser(userId));
-        return ok(result);
+    public ResponseEntity<List<PostFeedsResponse>> PostOfUser(@PathVariable("id") Long userId) {
+        return ok(postService.postOfUser(userId));
     }
 
     @PostMapping
@@ -43,6 +41,13 @@ public record PostController(
     public ResponseEntity<Post> updatePost(@PathVariable Long id ,@RequestBody PostCreationRequest request) throws ResourceNotFoundException {
 
         return ok(postService.updatePost(id, request));
+    }
+
+    @GetMapping("/feeds")
+    public ResponseEntity<List<PostFeedsResponse>> feeds(){
+        List<PostFeedsResponse> response =postService.getFeeds();
+//        System.out.println(response.get(0));
+        return ok(response);
     }
 }
 

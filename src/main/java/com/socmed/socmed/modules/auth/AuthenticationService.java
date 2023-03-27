@@ -1,7 +1,9 @@
 package com.socmed.socmed.modules.auth;
 
-import com.socmed.socmed.exception.PasswordConfirmationException;
+import com.socmed.socmed.exception.EmailExistException;
 import com.socmed.socmed.exception.ResourceNotFoundException;
+import com.socmed.socmed.modules.jwt.BlackListRepository;
+import com.socmed.socmed.modules.jwt.BlackListService;
 import com.socmed.socmed.modules.jwt.JwtService;
 import com.socmed.socmed.modules.role.Role;
 import com.socmed.socmed.modules.role.RoleRepository;
@@ -15,6 +17,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
 public record AuthenticationService(
@@ -23,12 +27,18 @@ public record AuthenticationService(
         JwtService jwtService,
         AuthenticationManager authenticationManager,
         RoleRepository roleRepository,
-        UserDetailsService userDetailsService
+        UserDetailsService userDetailsService,
+        BlackListService blackListService
 
 ) {
 
 
     public AuthenticationResponse register(RegisterRequest request) {
+
+        /*   checking if email exist   */
+        if(userRepository.findByEmail(request.getEmail()).isPresent()){
+            throw new EmailExistException("this email is already taken");
+        }
         Role role = roleRepository.findByName(request.getRole());
         User user = User.builder()
                 .email(request.getEmail())
@@ -60,6 +70,8 @@ public record AuthenticationService(
     }
 
     public AuthenticationResponse refreshToken(AuthenticationRefreshTokenRequest request) {
+        blackListService.blackListToken(request.getAccessToken());
+
         log.info("request value is \n " + request);
         User user = userRepository.findByUsername(request.getUsername()).orElseThrow(()->new ResourceNotFoundException("user is not found"));
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());

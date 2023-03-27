@@ -34,9 +34,22 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ex.getMessage();
     }
 
+    @ExceptionHandler(EmailExistException.class)
+    @ResponseStatus(code = BAD_REQUEST)
+    public String handleEmailExistException(EmailExistException ex){
+        return ex.getMessage();
+    }
+
     @ExceptionHandler(UniqueException.class)
     @ResponseStatus(code = BAD_REQUEST)
     public String handleUniqueException(UniqueException ex){
+        return ex.getMessage();
+    }
+
+
+    @ExceptionHandler(TokenBlacklistedException.class)
+    @ResponseStatus(code = UNAUTHORIZED)
+    public String handleTokenBlacklistedException(TokenBlacklistedException ex){
         return ex.getMessage();
     }
 

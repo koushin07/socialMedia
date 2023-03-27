@@ -1,10 +1,10 @@
-package com.socmed.socmed.modules.comment;
+package com.socmed.socmed.modules.reaction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.socmed.socmed.modules.post.Post;
+import com.socmed.socmed.modules.reaction.ReactionType;
 import com.socmed.socmed.modules.user.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,35 +14,38 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "reactions")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE comments SET deleted_at = now() WHERE id = ?")
+@SQLDelete(sql = "UPDATE reactions SET deleted_at = now() WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
-public class Comment {
+public class Reaction {
+
+    @Column(name = "reaction_id")
     @Id
-    @Column(name = "comment_id")
-    @SequenceGenerator(sequenceName = "comment_sequence", name = "comment_sequence")
-    @GeneratedValue(strategy = SEQUENCE, generator = "comment_sequence")
+    @SequenceGenerator(sequenceName = "reaction_sequence", name = "reaction_sequence")
+    @GeneratedValue(strategy = SEQUENCE, generator = "reaction_sequence")
     private Long id;
-    @NotEmpty
-    private String CommentContent;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     @JsonIgnore
     private Post post;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Enumerated(EnumType.STRING)
+    private ReactionType reactionType;
 
     @Column
     @CreationTimestamp
@@ -53,5 +56,8 @@ public class Comment {
     private LocalDateTime updatedAt;
 
     @Column
-    private LocalDateTime deletedAt;
+    private Timestamp deletedAt;
+
+
+
 }

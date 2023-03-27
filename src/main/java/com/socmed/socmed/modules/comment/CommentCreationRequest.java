@@ -12,10 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentCreationRequest {
 
-//    @NotEmpty(message = "please select a post")
     private Long postId;
-//    @NotEmpty(message = "please select a user")
-
     private Long userId;
 
     @NotEmpty(message = "your comment an empty content")

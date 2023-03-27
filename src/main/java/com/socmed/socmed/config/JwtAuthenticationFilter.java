@@ -1,5 +1,7 @@
 package com.socmed.socmed.config;
 
+import com.socmed.socmed.exception.TokenBlacklistedException;
+import com.socmed.socmed.modules.jwt.BlackListService;
 import com.socmed.socmed.modules.jwt.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -26,6 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final BlackListService blackListService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -40,6 +43,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         jwt = authHeader.substring(7);
         log.info(jwt);
+
+        if(blackListService.isAccessTokenBlackListed(jwt)){
+            throw new TokenBlacklistedException("this is token is black listed");
+        }
+
         username = jwtService.extractUsername(jwt);
         log.info("authenticating .....");
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

@@ -1,11 +1,15 @@
 package com.socmed.socmed.modules.profile;
 
 import com.socmed.socmed.exception.ResourceNotFoundException;
+import com.socmed.socmed.modules.post.Post;
+import com.socmed.socmed.modules.post.PostFeedsResponse;
 import com.socmed.socmed.modules.user.User;
 import com.socmed.socmed.modules.user.UserRepository;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring", uses = UserRepository.class)
 public interface ProfileMapper {
@@ -25,6 +29,8 @@ public interface ProfileMapper {
 //    @Mapping(target = "user", expression = "java(getUserById(request.getUserId()))")
     @Mapping(target = "user", source = "request.userId", ignore = true)
     public abstract Profile profileCreation(ProfileCreationRequest request ) throws ResourceNotFoundException;
+
+
 
 //    default User getUserById(long userId, ) throws ResourceNotFoundException {
 //        return userRepository.findById(userId)

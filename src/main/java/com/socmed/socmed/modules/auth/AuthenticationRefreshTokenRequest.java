@@ -16,4 +16,7 @@ public class AuthenticationRefreshTokenRequest {
     private String username;
     @NotEmpty(message = "please provide a refresh token")
     private String refreshToken;
+
+    @NotEmpty(message = "your access token is missing")
+    private String accessToken;
 }
