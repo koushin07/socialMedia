@@ -10,6 +10,6 @@ RUN mvn clean package -Pprod -DskipTests
 #
 FROM openjdk:17-jdk-slim
 COPY --from=build /target/socmed-0.0.1-SNAPSHOT.jar socmed.jar
-# ENV PORT=8080
+ENV SPRING_PROFILES_ACTIVE=prod
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","socmed.jar", "-Dspring.profiles.active=prod"]
+ENTRYPOINT ["java","-jar","socmed.jar"]
