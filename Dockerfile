@@ -12,4 +12,4 @@ FROM openjdk:17-jdk-slim
 COPY --from=build /target/socmed-0.0.1-SNAPSHOT.jar socmed.jar
 # ENV PORT=8080
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","socmed.jar"]
+ENTRYPOINT ["java","-jar","socmed.jar, -Dspring.profiles.active=prod"]
