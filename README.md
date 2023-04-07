@@ -42,6 +42,6 @@ The API documentation is available at http://localhost:8080/swagger-ui/index.htm
 ## Author
 Miko Cañares - Initial work
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
 
 
