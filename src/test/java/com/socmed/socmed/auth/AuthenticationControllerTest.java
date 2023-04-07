@@ -5,6 +5,7 @@ import com.socmed.socmed.modules.auth.AuthenticationRequest;
 import com.socmed.socmed.modules.auth.AuthenticationResponse;
 import com.socmed.socmed.modules.auth.AuthenticationService;
 import com.socmed.socmed.modules.profile.Profile;
+import com.socmed.socmed.modules.profile.ProfilePicture;
 import com.socmed.socmed.modules.role.Role;
 import com.socmed.socmed.modules.user.User;
 import com.socmed.socmed.modules.user.UserDTO;
@@ -39,7 +40,7 @@ class AuthenticationControllerTest {
         String username = "testuser";
         String password = "testpassword";
         String jwtToken = "testjwt";
-        Profile profile = Profile.builder().id(1l).user(new User()).firstName("miko").lastName("canares").middleName("castillo").suffix("").bio("aw").profilePicURL("none").build();
+        Profile profile = Profile.builder().id(1l).user(new User()).firstName("miko").lastName("canares").middleName("castillo").suffix("").bio("aw").profilePicture(new ProfilePicture()).build();
         Role role = Role.builder().name("admin").build();
         User user = User.builder().id(1L).email("test@gmail.com").username("test").password("test").role(role).profiles(profile).build();
 

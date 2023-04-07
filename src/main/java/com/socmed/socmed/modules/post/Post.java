@@ -46,6 +46,10 @@ public class Post {
 
     @OneToMany(mappedBy = "post", fetch = EAGER)
     private Collection<Comment> comments;
+
+    @Embedded
+    private PostFile postFile;
+
     @Column
     @CreationTimestamp
     private LocalDateTime createdAt;

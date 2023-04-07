@@ -21,7 +21,6 @@ public class JwtService {
 
 
     private static final String SECRET_KEY = "743777217A25432A462D4A404E635266556A586E3272357538782F413F442847";
-    private static final String REFRESHER_SECRET_KEY = "4A404E635266556A586E3272357538782F413F442A472D4B6150645367566B59";
 
     public String extractUsername(String token) {
 
@@ -97,8 +96,5 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyByte);
     }
 
-    private Key getRefresherSigningKey(){
-        byte[] keyByte = Decoders.BASE64.decode(REFRESHER_SECRET_KEY);
-        return Keys.hmacShaKeyFor(keyByte);
-    }
+
 }

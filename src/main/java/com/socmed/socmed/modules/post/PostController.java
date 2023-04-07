@@ -29,7 +29,7 @@ public record PostController(
     }
 
     @PostMapping
-    public ResponseEntity<PostResponse> createPost(@RequestBody  PostCreationRequest request) throws ResourceNotFoundException {
+    public ResponseEntity<PostResponse> createPost(@RequestBody @Valid  PostCreationRequest request) throws ResourceNotFoundException {
         log.info("creating new post user id "+request.getUserId() );
 
         return created(URI.create("")).body(postService.createPost(request));

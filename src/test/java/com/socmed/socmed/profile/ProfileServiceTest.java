@@ -1,6 +1,8 @@
 package com.socmed.socmed.profile;
 
+import com.google.cloud.storage.Storage;
 import com.socmed.socmed.exception.ResourceNotFoundException;
+import com.socmed.socmed.googleCloud.GoogleCloudStorageService;
 import com.socmed.socmed.modules.profile.*;
 import com.socmed.socmed.modules.role.RoleRepository;
 import com.socmed.socmed.modules.user.UserRepository;
@@ -35,12 +37,16 @@ class ProfileServiceTest {
     @Mock
     private RoleRepository roleRepository;
 
+
+    @Mock
+    private GoogleCloudStorageService googleCloudStorageService;
+
     @BeforeEach
     void setUp() {
         userRepository = mock(UserRepository.class);
         roleRepository = mock(RoleRepository.class);
 
-        underTest = new ProfileService(profileRepository, userRepository);
+        underTest = new ProfileService(profileRepository, userRepository , googleCloudStorageService );
     }
     @Test
     void shouldCreateProfile() throws ResourceNotFoundException {
@@ -115,7 +121,7 @@ class ProfileServiceTest {
                 .middleName("castillo")
                 .suffix("")
                 .bio("aw")
-                .profilePicURL("none")
+                .profilePicture(new ProfilePicture())
                 .build();
         /*when*/
 //        when(roleRepository.findById(role.getId())).thenReturn(Optional.of(role));

@@ -3,17 +3,32 @@ package com.socmed.socmed.modules.profile;
 
 import com.socmed.socmed.exception.ResourceNotFoundException;
 import com.socmed.socmed.exception.UniqueException;
+import com.socmed.socmed.googleCloud.GoogleCloudStorageService;
 import com.socmed.socmed.modules.user.User;
 import com.socmed.socmed.modules.user.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
-public record ProfileService(
-        ProfileRepository profileRepository,
-        UserRepository userRepository
-) {
+@RequiredArgsConstructor
+@AllArgsConstructor
+public class ProfileService {
+
+    @Autowired
+    private  ProfileRepository profileRepository;
+    @Autowired
+    private   UserRepository userRepository;
+    @Autowired
+    private GoogleCloudStorageService googleCloudStorageService;
+
+
     public Profile getProfileById(Long id) {
         return profileRepository.findById(id).orElse(null);
     }
@@ -43,6 +58,29 @@ public record ProfileService(
         Profile profileToUpdate = profileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("no profile found"));
         ProfileMapper.INSTANCE.updateProfileFromDto(profileDTO, profileToUpdate);
         return profileRepository.save(profileToUpdate);
+
+    }
+
+    @Transactional
+    public Profile uploadProfilePic(Long id, MultipartFile file) throws IOException {
+
+            Profile profile = profileRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("no user with profile found"));
+
+            byte[] fileContent = file.getBytes();
+
+            googleCloudStorageService.uploadFile(file.getOriginalFilename(), fileContent);
+
+            String url = googleCloudStorageService.getFileUrl( file.getOriginalFilename());
+            ProfilePicture picture = ProfilePicture.builder()
+                    .ProfilePictureName(file.getOriginalFilename())
+                    .ProfilePictureType(file.getContentType())
+                    .ProfilePictureURL(googleCloudStorageService.getFileUrl( file.getOriginalFilename()))
+                    .build();
+
+            profile.setProfilePicture(picture);
+            profileRepository.save(profile);
+            return profileRepository.save(profile);
+
 
     }
 

@@ -47,7 +47,7 @@ public class Profile {
     private String suffix;
     private String middleName;
 
-    private String profilePicURL;
+    private ProfilePicture profilePicture;
     private String bio;
 
     @Column

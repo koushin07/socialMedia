@@ -11,7 +11,7 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
 
-    @Query(value = "SELECT p.* FROM posts p\n " +
+    @Query(value = "SELECT p.*  FROM posts p\n " +
             "JOIN  users u ON u.id = p.user_id\n " +
             "JOIN follows f ON f.follower_id = u.id\n " +
             "WHERE f.user_id = :userId" , nativeQuery = true)

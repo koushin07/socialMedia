@@ -2,11 +2,22 @@ package com.socmed.socmed.modules.profile;
 
 
 import com.socmed.socmed.exception.ResourceNotFoundException;
+import com.socmed.socmed.googleCloud.GoogleCloudStorageService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -17,10 +28,9 @@ import static org.springframework.http.HttpStatus.CREATED;
 @AllArgsConstructor
 public class ProfileController {
 
+
     @Autowired
     ProfileService profileService;
-
-
 
 
     @GetMapping("/{id}")
@@ -38,6 +48,19 @@ public class ProfileController {
         Profile createdProfile = profileService.createProfile(profile);
         return ResponseEntity.status(CREATED).body(createdProfile);
     }
+
+
+    @PostMapping("/upload/{id}")
+    public ResponseEntity<Profile> uploadProfilePic(
+            @PathVariable("id") Long id,
+            @RequestParam("file") MultipartFile file) throws IOException {
+        System.out.println(file);
+
+
+        return ResponseEntity.ok( profileService.uploadProfilePic(id, file));
+    }
+
+
 
     /**
      * @// TODO: 3/16/23 change 2nd @param profileDTO

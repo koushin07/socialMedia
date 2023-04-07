@@ -20,6 +20,12 @@ public class PostFeedsResponse {
 
     private String postContent;
 
+    private String postFileName;
+
+    private String postFileType;
+
+    private String postFileURL;
+
     private Collection<ReactionDTO> reactions;
 
    private Collection<CommentDTO> comments;
@@ -27,4 +33,6 @@ public class PostFeedsResponse {
    private UserDTO user;
 
 }
+
+
 
