@@ -31,7 +31,7 @@ This is a Spring RESTful application that allows users to create an account, cre
 5. Comment on a post using the `/api/v1/comments/create` comments endpoint.
 6. React to a post using the `/api/v1/reactions/create` endpoint.
 7. Follow another user using the `/api/v1/follows/{followId}/user/{authId}` endpoint.
-8. To get all the posts of my all the user i follow `/api/v1/post/{authId}` endpoint.
+8. To get all the posts of all the user i follow `/api/v1/post/{authId}` endpoint.
 
 
 ## API Documentation
