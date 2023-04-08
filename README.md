@@ -30,7 +30,9 @@ This is a Spring RESTful application that allows users to create an account, cre
 4. Make a post using the `/api/v1/post` endpoint.
 5. Comment on a post using the `/api/v1/comments/create` comments endpoint.
 6. React to a post using the `/api/v1/reactions/create` endpoint.
-7. Follow another user using the `/api/v1/follows/{followId}/user/{authId}`w endpoint.
+7. Follow another user using the `/api/v1/follows/{followId}/user/{authId}` endpoint.
+8. To get all the posts of my all the user i follow `/api/v1/post/{authId}` endpoint.
+
 
 ## API Documentation
 The API documentation is available at http://localhost:8080/swagger-ui/index.html when the application is running.
